@@ -9,6 +9,24 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AlexandreApps.Condominial.B
 EndProject
 Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-compose.dcproj", "{463D9526-4184-49CE-9307-76C87B95B083}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Model", "Model", "{9E110EDF-3F27-42B8-B439-77D5CDD1E6C4}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AlexandreApps.Condominial.Backend.Model", "Model\AlexandreApps.Condominial.Backend.Model\AlexandreApps.Condominial.Backend.Model.csproj", "{601F81A2-1DA0-411E-8895-1A487951791A}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "AppService", "AppService", "{0A852FEE-0AD7-4E75-8A14-C22A9D47C317}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "DataService", "DataService", "{E9436E91-1DFA-4C3F-8A57-7C03ABC44AC6}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Exception", "Exception", "{5F473268-FA4F-4550-81B7-92B5C71C94B0}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AlexandreApps.Condominial.Backend.Exceptions", "..\AlexandreApps.Condominial.Backend.Exception\AlexandreApps.Condominial.Backend.Exceptions\AlexandreApps.Condominial.Backend.Exceptions.csproj", "{0F5F158E-8B6F-4FC8-B2D3-24ACECE723FB}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AlexandreApps.Condominial.Backend.Dataservice", "Dataservice\AlexandreApps.Condominial.Backend.Dataservice\AlexandreApps.Condominial.Backend.Dataservice.csproj", "{56AE7626-47DE-49F1-B312-F0045396FF3E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AlexandreApps.Condominial.Backend.Appservice", "AppService\AlexandreApps.Condominial.Backend.Appservice\AlexandreApps.Condominial.Backend.Appservice.csproj", "{A5F4C8AE-DD46-4F64-973B-9384D5B483B1}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AlexandreApps.Condominial.Backend.UI.tests", "Presentation\AlexandreApps.Condominial.Backend.UI.tests\AlexandreApps.Condominial.Backend.UI.tests.csproj", "{F6DF533B-FEF8-494C-8642-C267D3D060B5}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -23,12 +41,37 @@ Global
 		{463D9526-4184-49CE-9307-76C87B95B083}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{463D9526-4184-49CE-9307-76C87B95B083}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{463D9526-4184-49CE-9307-76C87B95B083}.Release|Any CPU.Build.0 = Release|Any CPU
+		{601F81A2-1DA0-411E-8895-1A487951791A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{601F81A2-1DA0-411E-8895-1A487951791A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{601F81A2-1DA0-411E-8895-1A487951791A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{601F81A2-1DA0-411E-8895-1A487951791A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0F5F158E-8B6F-4FC8-B2D3-24ACECE723FB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0F5F158E-8B6F-4FC8-B2D3-24ACECE723FB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0F5F158E-8B6F-4FC8-B2D3-24ACECE723FB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0F5F158E-8B6F-4FC8-B2D3-24ACECE723FB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{56AE7626-47DE-49F1-B312-F0045396FF3E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{56AE7626-47DE-49F1-B312-F0045396FF3E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{56AE7626-47DE-49F1-B312-F0045396FF3E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{56AE7626-47DE-49F1-B312-F0045396FF3E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A5F4C8AE-DD46-4F64-973B-9384D5B483B1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A5F4C8AE-DD46-4F64-973B-9384D5B483B1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A5F4C8AE-DD46-4F64-973B-9384D5B483B1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A5F4C8AE-DD46-4F64-973B-9384D5B483B1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F6DF533B-FEF8-494C-8642-C267D3D060B5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F6DF533B-FEF8-494C-8642-C267D3D060B5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F6DF533B-FEF8-494C-8642-C267D3D060B5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F6DF533B-FEF8-494C-8642-C267D3D060B5}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{FDC6B5F3-3DEA-450A-973C-0643CB7EB776} = {2CA308F1-5F38-497C-9C08-4473C2933DC5}
+		{601F81A2-1DA0-411E-8895-1A487951791A} = {9E110EDF-3F27-42B8-B439-77D5CDD1E6C4}
+		{0F5F158E-8B6F-4FC8-B2D3-24ACECE723FB} = {5F473268-FA4F-4550-81B7-92B5C71C94B0}
+		{56AE7626-47DE-49F1-B312-F0045396FF3E} = {E9436E91-1DFA-4C3F-8A57-7C03ABC44AC6}
+		{A5F4C8AE-DD46-4F64-973B-9384D5B483B1} = {0A852FEE-0AD7-4E75-8A14-C22A9D47C317}
+		{F6DF533B-FEF8-494C-8642-C267D3D060B5} = {2CA308F1-5F38-497C-9C08-4473C2933DC5}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {C2B53A69-ED71-4D72-A592-A78DEEE9ADBC}
