@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using AlexandreApps.Condominial.Backend.Model.Domain;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Configuration;
 
 namespace AlexandreApps.Condominial.Backend.UI.Controllers
 {

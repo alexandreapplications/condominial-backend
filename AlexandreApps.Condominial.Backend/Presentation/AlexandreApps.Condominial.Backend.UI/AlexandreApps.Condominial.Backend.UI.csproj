@@ -20,6 +20,8 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\AppService\AlexandreApps.Condominial.Backend.Appservice\AlexandreApps.Condominial.Backend.Appservice.csproj" />
+    <ProjectReference Include="..\..\Dataservice\AlexandreApps.Condominial.Backend.Dataservice\AlexandreApps.Condominial.Backend.Dataservice.csproj" />
     <ProjectReference Include="..\..\Model\AlexandreApps.Condominial.Backend.Model\AlexandreApps.Condominial.Backend.Model.csproj" />
   </ItemGroup>
 
