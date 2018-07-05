@@ -51,5 +51,17 @@ namespace AlexandreApps.Condominial.Backend.UI.Controllers
         {
             this._userDataService.Delete(models);
         }
+
+        [HttpPut("Subscribe")]
+        public bool Subscribe(SubscribeViewModel model)
+        {
+            return this._userDataService.Subscribe(model);
+        }
+        [HttpPut("Login")]
+        public string Login(LoginViewModel model)
+        {
+            return this._userDataService.Login(model);
+        }
+
     }
 }

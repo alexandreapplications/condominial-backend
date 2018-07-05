@@ -12,5 +12,7 @@ namespace AlexandreApps.Condominial.Backend.Interfaces.AppService.Security
         void Insert(IEnumerable<UserViewModel> models);
         void Update(IEnumerable<UserViewModel> models);
         void Delete(IEnumerable<Guid> ids);
+        bool Subscribe(SubscribeViewModel model);
+        string Login(LoginViewModel model);
     }
 }

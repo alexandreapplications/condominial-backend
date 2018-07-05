@@ -50,5 +50,35 @@ namespace AlexandreApps.Condominial.Backend.Appservice.Security
             }
             ));
         }
+
+        public void Update(IEnumerable<UserViewModel> models)
+        {
+            this._userDataService.Update(models.Select(x => new UserModel
+            {
+                Id = Guid.NewGuid(),
+                Login = x.Login,
+                Name = x.Name,
+                BirthDate = x.BirthDate,
+                Country = x.Country,
+                PersonId = x.PersonId,
+                SubscribeDate = DateTime.UtcNow,
+                Password = System.Text.Encoding.UTF8.GetBytes(x.Password)
+            }));
+        }
+
+        public void Delete(IEnumerable<Guid> ids)
+        {
+            this._userDataService.Delete(ids);
+        }
+
+        public bool Subscribe(SubscribeViewModel model)
+        {
+            throw new NotImplementedException();
+        }
+
+        public string Login(LoginViewModel model)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
