@@ -1,6 +1,8 @@
 ﻿using AlexandreApps.Condominial.Backend.Appservice.Domain;
+using AlexandreApps.Condominial.Backend.Appservice.Security;
 using AlexandreApps.Condominial.Backend.Dataservice.Security;
 using AlexandreApps.Condominial.Backend.Interfaces.AppService.Domain;
+using AlexandreApps.Condominial.Backend.Interfaces.AppService.Security;
 using AlexandreApps.Condominial.Backend.Interfaces.DataService.Security;
 using AlexandreApps.Condominial.Backend.Model.Domain;
 using Microsoft.Extensions.Configuration;
@@ -21,6 +23,8 @@ namespace AlexandreApps.Condominial.Backend.UI
             services.AddSingleton<ISettingsAppService, SettingsAppService>(x => new SettingsAppService(configuration));
 
             services.AddSingleton<IUserDataService, UserDataService>();
+
+            services.AddSingleton<IUserAppService, UserAppService>();
         }
     }
 }
