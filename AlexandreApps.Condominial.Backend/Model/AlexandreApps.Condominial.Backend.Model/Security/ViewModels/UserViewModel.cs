@@ -38,10 +38,6 @@ namespace AlexandreApps.Condominial.Backend.Model.Security.ViewModels
         /// </summary>
         public string PersonId { get; set; }
         /// <summary>
-        /// Password
-        /// </summary>
-        public string Password { get; set; }
-        /// <summary>
         /// Subscribing Date
         /// </summary>
         [Required]

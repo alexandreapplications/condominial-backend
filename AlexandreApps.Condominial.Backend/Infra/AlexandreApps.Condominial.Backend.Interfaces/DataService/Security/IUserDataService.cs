@@ -7,9 +7,10 @@ namespace AlexandreApps.Condominial.Backend.Interfaces.DataService.Security
 {
     public interface IUserDataService
     {
-        Task<IList<UserModel>> Get();
-        void Insert(IEnumerable<UserModel> models);
-        void Update(IEnumerable<UserModel> models);
-        void Delete(IEnumerable<Guid> ids);
+        Task<IList<UserModel>> Get(Guid id);
+        Task<IList<UserModel>> GetAll();
+        Task<IEnumerable<Guid>> Insert(IEnumerable<UserModel> models);
+        Task<IEnumerable<Guid>> Update(IEnumerable<UserModel> models);
+        Task<IEnumerable<Guid>> Delete(IEnumerable<Guid> ids);
     }
 }

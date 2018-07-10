@@ -25,6 +25,8 @@ namespace AlexandreApps.Condominial.Backend.UI
             services.AddSingleton<IUserDataService, UserDataService>();
 
             services.AddSingleton<IUserAppService, UserAppService>();
+
+            services.AddSingleton<IPasswordDataService, PasswordDataService>();
         }
     }
 }

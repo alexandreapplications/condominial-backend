@@ -15,52 +15,60 @@ namespace AlexandreApps.Condominial.Backend.UI.Controllers
     [Route("api/User")]
     public class UserController : Controller
     {
-        private IUserAppService _userDataService;
+        private IUserAppService _userAppService;
 
-        public UserController(IUserAppService userDataService)
+        public UserController(IUserAppService userAppService)
         {
-            this._userDataService = userDataService;
+            this._userAppService = userAppService;
         }
 
-        [HttpGet("GetAll")]
-        public async Task<IActionResult> GetAll()
+        [HttpGet("Get")]
+        public async Task<IActionResult> Get(Guid? id)
         {
-            return new OkObjectResult(await this._userDataService.Get());
+            if (id.HasValue)
+                return new OkObjectResult(await this._userAppService.Get(id.Value));
+            return new OkObjectResult(await this._userAppService.GetAll());
         }
 
         [HttpPut("Insert")]
-        public void Insert([FromBody] UserViewModel[] models)
+        public async Task<IActionResult> Insert([FromBody] UserViewModel model)
         {
-            if (this.ModelState.IsValid)
-            {
-                this._userDataService.Insert(models);
-            }
+            if (!this.ModelState.IsValid)
+                return BadRequest(ModelState);
+
+            var answer = await this._userAppService.Insert(model);
+
+            return Created($"api/user/{ answer.First() }", answer);
         }
 
-        [HttpPut("Update")]
-        public void Update([FromBody] UserViewModel[] models)
+        [HttpPost("Update")]
+        public async Task<IActionResult> Update([FromBody] UserViewModel model)
         {
-            if (this.ModelState.IsValid)
-            {
-                this._userDataService.Update(models);
-            }
+            if (!this.ModelState.IsValid)
+                return BadRequest(ModelState);
+
+            var answer = await this._userAppService.Update(model);
+
+            return Accepted($"api/user/{ answer.First() }", answer);
         }
 
-        [HttpPut("Delete")]
-        public void Delete([FromBody] Guid[] models)
+        [HttpDelete("Delete")]
+        public async Task<IActionResult> Delete([FromBody] Guid model)
         {
-            this._userDataService.Delete(models);
+            await this._userAppService.Delete(model);
+
+            return Accepted();
         }
 
         [HttpPut("Subscribe")]
         public bool Subscribe(SubscribeViewModel model)
         {
-            return this._userDataService.Subscribe(model);
+            return this._userAppService.Subscribe(model);
         }
         [HttpPut("Login")]
         public string Login(LoginViewModel model)
         {
-            return this._userDataService.Login(model);
+            return this._userAppService.Login(model);
         }
 
     }

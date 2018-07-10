@@ -5,7 +5,7 @@ using AlexandreApps.Condominial.Backend.Model.Security.ViewModels;
 using MongoDB.Driver;
 using System;
 using System.Collections.Generic;
-using System.Text;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace AlexandreApps.Condominial.Backend.Dataservice.Security
@@ -19,33 +19,40 @@ namespace AlexandreApps.Condominial.Backend.Dataservice.Security
 
         protected override string CollectionName => "User";
 
-        public async Task<IList<UserModel>> Get()
+        public async Task<IList<UserModel>> Get(Guid id)
+        {
+            return await base.GetCollection().Find(new FilterDefinitionBuilder<UserModel>().Eq(x => x.Id, id)).ToListAsync();
+        }
+
+        public async Task<IList<UserModel>> GetAll()
         {
             return await base.GetCollection().Find(FilterDefinition<UserModel>.Empty).ToListAsync();
         }
 
-        public void Insert(IEnumerable<UserModel> models)
+        public async Task<IEnumerable<Guid>> Insert(IEnumerable<UserModel> models)
         {
-            GetCollection().InsertManyAsync(models);
+            await GetCollection().InsertManyAsync(models);
+            return models.Select(x => x.Id);
         }
 
-        public void Update(IEnumerable<UserModel> models)
+        public async Task<IEnumerable<Guid>> Update(IEnumerable<UserModel> models)
         {
             foreach (var model in models)
             {
                 var filterDefinition = new FilterDefinitionBuilder<UserModel>().Eq(x => x.Id, model.Id);
-                GetCollection().ReplaceOneAsync(filterDefinition, model);
-
+                await GetCollection().ReplaceOneAsync(filterDefinition, model);
             }
+            return models.Select(x => x.Id);
         }
 
-        public void Delete(IEnumerable<Guid> ids)
+        public async Task<IEnumerable<Guid>> Delete(IEnumerable<Guid> ids)
         {
             foreach (var id in ids)
             {
                 var filterDefinition = new FilterDefinitionBuilder<UserModel>().Eq(x => x.Id, id);
-                GetCollection().FindOneAndDeleteAsync<UserModel>(filterDefinition);
+                await GetCollection().FindOneAndDeleteAsync<UserModel>(filterDefinition);
             }
+            return ids;
         }
     }
 }
