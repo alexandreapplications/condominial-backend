@@ -12,7 +12,7 @@ namespace AlexandreApps.Condominial.Backend.Model.Security.ViewModels
         [Required, EmailAddress]
         public string Email { get; set; }
         [Required]
-        public string BirthDate { get; set; }
+        public DateTime BirthDate { get; set; }
         public int Country { get; set; }
         [Required, MinLength(8)]
         public string PassWord { get; set; }

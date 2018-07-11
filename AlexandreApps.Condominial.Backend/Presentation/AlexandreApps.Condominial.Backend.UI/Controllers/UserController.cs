@@ -16,10 +16,12 @@ namespace AlexandreApps.Condominial.Backend.UI.Controllers
     public class UserController : Controller
     {
         private IUserAppService _userAppService;
+        private IPasswordAppService _passwordAppService;
 
-        public UserController(IUserAppService userAppService)
+        public UserController(IUserAppService userAppService, IPasswordAppService passwordAppService)
         {
             this._userAppService = userAppService;
+            this._passwordAppService = passwordAppService;
         }
 
         [HttpGet("Get")]
@@ -61,14 +63,17 @@ namespace AlexandreApps.Condominial.Backend.UI.Controllers
         }
 
         [HttpPut("Subscribe")]
-        public bool Subscribe(SubscribeViewModel model)
+        public async Task<IActionResult> Subscribe(SubscribeViewModel model)
         {
-            return this._userAppService.Subscribe(model);
+            var answer = await this._userAppService.Subscribe(model);
+            return Created($"api/user/{ answer }", answer);
         }
+
         [HttpPut("Login")]
-        public string Login(LoginViewModel model)
+        public async Task<IActionResult> Login(LoginViewModel model)
         {
-            return this._userAppService.Login(model);
+            var answer = await this._passwordAppService.Login(model);
+            return Accepted(answer);
         }
 
     }

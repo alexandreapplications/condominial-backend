@@ -1,4 +1,5 @@
-﻿using AlexandreApps.Condominial.Backend.Interfaces.AppService.Security;
+﻿using AlexandreApps.Condominial.Backend.Exceptions.Application;
+using AlexandreApps.Condominial.Backend.Interfaces.AppService.Security;
 using AlexandreApps.Condominial.Backend.Interfaces.DataService.Security;
 using AlexandreApps.Condominial.Backend.Model.Security;
 using AlexandreApps.Condominial.Backend.Model.Security.ViewModels;
@@ -12,10 +13,12 @@ namespace AlexandreApps.Condominial.Backend.Appservice.Security
     public class UserAppService: IUserAppService
     {
         private IUserDataService _userDataService;
+        private IPasswordAppService _passwordAppService;
 
-        public UserAppService(IUserDataService userDataService)
+        public UserAppService(IUserDataService userDataService, IPasswordAppService passwordAppService)
         {
             this._userDataService = userDataService;
+            this._passwordAppService = passwordAppService;
         }
 
         public async Task<IEnumerable<UserViewModel>> Get(Guid id)
@@ -87,14 +90,44 @@ namespace AlexandreApps.Condominial.Backend.Appservice.Security
             return await this._userDataService.Delete(ids);
         }
 
-        public bool Subscribe(SubscribeViewModel model)
+        public async Task<Guid> Subscribe(SubscribeViewModel model)
         {
-            throw new NotImplementedException();
-        }
+            // Verify if login already exists
+            var users = await _userDataService.GetByLogin(model.Email);
+            var insertedId = Guid.NewGuid();
 
-        public string Login(LoginViewModel model)
-        {
-            throw new NotImplementedException();
+            if (users != null && users.Count > 0)
+            {
+                var user = users.First();
+
+                if (!await this._passwordAppService.HasPassword(user.Id))
+                {
+                    throw new UserAlreadyExistsException(user.Login, user.Id);
+                }
+                insertedId = user.Id;
+            }
+
+            var now = DateTime.Now;
+            var includedUsers = await _userDataService.Insert(new UserModel
+            {
+                Id = insertedId,
+                Login = model.Email,
+                Country = model.Country,
+                BirthDate = model.BirthDate,
+                Name = model.Name,
+                Password = null,
+                PersonId = null,
+                SubscribeDate = now
+            });
+            if (includedUsers.Count() > 0)
+            {
+                await this._passwordAppService.SetPassword(new PasswordViewModel
+                {
+                    Login = model.Email,
+                    Password = model.PassWord
+                });
+            }
+            return insertedId;
         }
     }
 }

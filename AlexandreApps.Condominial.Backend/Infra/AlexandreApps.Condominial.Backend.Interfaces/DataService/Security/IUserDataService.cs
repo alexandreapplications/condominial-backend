@@ -11,6 +11,7 @@ namespace AlexandreApps.Condominial.Backend.Interfaces.DataService.Security
         Task<IList<UserModel>> GetAll();
         Task<IList<UserModel>> GetByLogin(string login);
         Task<IEnumerable<Guid>> Insert(IEnumerable<UserModel> models);
+        Task<IEnumerable<Guid>> Insert(params UserModel[] models);
         Task<IEnumerable<Guid>> Update(IEnumerable<UserModel> models);
         Task<IEnumerable<Guid>> Delete(IEnumerable<Guid> ids);
     }

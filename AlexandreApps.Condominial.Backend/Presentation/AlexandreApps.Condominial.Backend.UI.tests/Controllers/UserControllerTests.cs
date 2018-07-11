@@ -19,7 +19,8 @@ namespace AlexandreApps.Condominial.Backend.UI.tests.Controllers
             mockAppService.Setup(x => x.Insert(MockData[0])).ReturnsAsync(new List<Guid> { Guid.Empty });
             mockAppService.Setup(x => x.Update(MockData[0])).ReturnsAsync(new List<Guid> { Guid.Empty });
             mockAppService.Setup(x => x.Delete()).ReturnsAsync(new List<Guid> { Guid.Empty });
-            this._userController = new UserController(mockAppService.Object);
+            var mockPasswordAppService = new Mock<IPasswordAppService>();
+            this._userController = new UserController(mockAppService.Object, mockPasswordAppService.Object);
         }
         private List<UserViewModel> MockData { get; set; } = new List<UserViewModel> {
                 new UserViewModel {

@@ -13,7 +13,6 @@ namespace AlexandreApps.Condominial.Backend.Interfaces.AppService.Security
         Task<IEnumerable<Guid>> Insert(params UserViewModel[] models);
         Task<IEnumerable<Guid>> Update(params UserViewModel[] models);
         Task<IEnumerable<Guid>> Delete(params Guid[] ids);
-        bool Subscribe(SubscribeViewModel model);
-        string Login(LoginViewModel model);
+        Task<Guid> Subscribe(SubscribeViewModel model);
     }
 }

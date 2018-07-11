@@ -20,13 +20,21 @@ namespace AlexandreApps.Condominial.Backend.UI
         {
             services = services ?? throw new ArgumentNullException(nameof(services));
 
+            #region Configuration
             services.AddSingleton<ISettingsAppService, SettingsAppService>(x => new SettingsAppService(configuration));
+            #endregion
 
+            #region User
             services.AddSingleton<IUserDataService, UserDataService>();
 
             services.AddSingleton<IUserAppService, UserAppService>();
+            #endregion
 
+            #region Password
             services.AddSingleton<IPasswordDataService, PasswordDataService>();
+
+            services.AddSingleton<IPasswordAppService, PasswordAppService>();
+            #endregion
         }
     }
 }

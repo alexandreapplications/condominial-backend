@@ -11,32 +11,52 @@ using System.Threading.Tasks;
 
 namespace AlexandreApps.Condominial.Backend.Appservice.Security
 {
-    public class PasswordAppService
+    public class PasswordAppService: IPasswordAppService
     {
-        private IPasswordDataService PasswordDataService { get; set; }
-        private IUserDataService UserDataService { get; set; }
+        private IPasswordDataService _passwordDataService { get; set; }
+        private IUserDataService _userDataService { get; set; }
         public PasswordAppService(IPasswordDataService passwordDataService, IUserDataService userDataService)
         {
-            this.PasswordDataService = passwordDataService;
-            this.UserDataService = userDataService;
+            this._passwordDataService = passwordDataService;
+            this._userDataService = userDataService;
         }
 
         public async Task<IEnumerable<Guid>> SetPassword(PasswordViewModel model)
         {
             // Verify if the user exists
-            var users = await UserDataService.GetByLogin(model.Login);
+            var users = await _userDataService.GetByLogin(model.Login);
             if (users == null || users.Count > 0)
             {
                 throw new UserDoesntExistsException(model.Login);
             }
             var user = users.First();
-            return await PasswordDataService.Insert(new PasswordModel
+            return await _passwordDataService.Insert(new PasswordModel
             {
                 UserId = user.Id,
                 Id = Guid.Empty,
                 Date = DateTime.UtcNow,
                 Password = this.DoEncriptPassword(user.Id, model.Password)
             });
+        }
+
+        public async Task<bool> Login(LoginViewModel model)
+        {
+            var users = await _userDataService.GetByLogin(model.Login);
+            if (users == null || users.Count > 0)
+            {
+                throw new UserDoesntExistsException(model.Login);
+            }
+            var user = users.First();
+            var pwdData = await this._passwordDataService.GetLast(user.Id);
+
+            var encPwd = DoEncriptPassword(user.Id, model.Password);
+
+            return encPwd.SequenceEqual(pwdData.Password);
+        }
+
+        public async Task<bool> HasPassword(Guid id)
+        {
+            return await this._passwordDataService.GetLast(id) != null;
         }
 
         private byte[] DoEncriptPassword(Guid userId, string password)

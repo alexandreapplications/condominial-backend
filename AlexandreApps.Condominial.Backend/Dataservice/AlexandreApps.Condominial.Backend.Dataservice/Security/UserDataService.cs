@@ -34,6 +34,10 @@ namespace AlexandreApps.Condominial.Backend.Dataservice.Security
             return await base.GetCollection().Find(new FilterDefinitionBuilder<UserModel>().Eq(x => x.Login, login)).ToListAsync();
         }
 
+        public async Task<IEnumerable<Guid>> Insert(params UserModel[] models)
+        {
+            return await this.Insert(models.AsEnumerable());
+        }
         public async Task<IEnumerable<Guid>> Insert(IEnumerable<UserModel> models)
         {
             await GetCollection().InsertManyAsync(models);

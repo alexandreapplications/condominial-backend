@@ -8,8 +8,8 @@ namespace AlexandreApps.Condominial.Backend.Model.Security.ViewModels
     public class LoginViewModel
     {
         [Required, EmailAddress]
-        public string Email { get; set; }
+        public string Login { get; set; }
         [Required, MinLength(8)]
-        public string PassWord { get; set; }
+        public string Password { get; set; }
     }
 }
