@@ -17,7 +17,7 @@ namespace AlexandreApps.Condominial.Backend.Dataservice.Security
         {
         }
 
-        protected override string CollectionName => "User";
+        protected override string CollectionName => "Password";
 
         public async Task<IList<PasswordModel>> Get(Guid id)
         {
@@ -28,6 +28,11 @@ namespace AlexandreApps.Condominial.Backend.Dataservice.Security
         {
             await GetCollection().InsertManyAsync(models);
             return models.Select(x => x.Id);
+        }
+
+        public Task<IEnumerable<Guid>> Insert(params PasswordModel[] models)
+        {
+            return this.Insert(models.AsEnumerable());
         }
     }
 }

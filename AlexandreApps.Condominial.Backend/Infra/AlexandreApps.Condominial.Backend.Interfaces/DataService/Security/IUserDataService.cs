@@ -9,6 +9,7 @@ namespace AlexandreApps.Condominial.Backend.Interfaces.DataService.Security
     {
         Task<IList<UserModel>> Get(Guid id);
         Task<IList<UserModel>> GetAll();
+        Task<IList<UserModel>> GetByLogin(string login);
         Task<IEnumerable<Guid>> Insert(IEnumerable<UserModel> models);
         Task<IEnumerable<Guid>> Update(IEnumerable<UserModel> models);
         Task<IEnumerable<Guid>> Delete(IEnumerable<Guid> ids);

@@ -10,5 +10,6 @@ namespace AlexandreApps.Condominial.Backend.Interfaces.AppService.Security
     {
         Task<IList<PasswordModel>> Get(Guid id);
         Task<IEnumerable<Guid>> Insert(IEnumerable<PasswordModel> models);
+        Task<IEnumerable<Guid>> Insert(params PasswordModel[] models);
     }
 }
