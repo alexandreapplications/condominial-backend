@@ -21,7 +21,7 @@ namespace AlexandreApps.Condominial.Backend.UI.tests.Controllers
             mockAppService.Setup(x => x.Delete()).ReturnsAsync(new List<Guid> { Guid.Empty });
             mockAppService.Setup(x => x.Subscribe(MockDataSubscribe[0])).ReturnsAsync(Guid.Empty);
             var mockPasswordAppService = new Mock<IPasswordAppService>();
-            mockPasswordAppService.Setup(x => x.Login(MockDataLogin[0])).ReturnsAsync(false);
+            mockPasswordAppService.Setup(x => x.Login(MockDataLogin[0])).ReturnsAsync("abc");
             this._userController = new UserController(mockAppService.Object, mockPasswordAppService.Object);
         }
         private List<UserViewModel> MockData { get; set; } = new List<UserViewModel> {

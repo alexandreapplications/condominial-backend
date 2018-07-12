@@ -19,14 +19,14 @@ namespace AlexandreApps.Condominial.Backend.Dataservice.Security
 
         protected override string CollectionName => "Password";
 
-        public async Task<IList<PasswordModel>> Get(Guid id)
+        public async Task<IList<PasswordModel>> Get(Guid userId)
         {
-            return await base.GetCollection().Find(new FilterDefinitionBuilder<PasswordModel>().Eq(x => x.Id, id)).ToListAsync();
+            return await base.GetCollection().Find(new FilterDefinitionBuilder<PasswordModel>().Eq(x => x.UserId, userId)).ToListAsync();
         }
 
-        public async Task<PasswordModel> GetLast(Guid id)
+        public async Task<PasswordModel> GetLast(Guid userId)
         {
-            return await base.GetCollection().Find(new FilterDefinitionBuilder<PasswordModel>().Eq(x => x.Id, id)).SortByDescending(x => x.Date).FirstOrDefaultAsync();
+            return await base.GetCollection().Find(new FilterDefinitionBuilder<PasswordModel>().Eq(x => x.UserId, userId)).SortByDescending(x => x.Date).FirstOrDefaultAsync();
         }
 
         public async Task<IEnumerable<Guid>> Insert(IEnumerable<PasswordModel> models)

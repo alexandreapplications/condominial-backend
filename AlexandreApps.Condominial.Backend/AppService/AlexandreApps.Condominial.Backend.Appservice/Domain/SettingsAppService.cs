@@ -14,7 +14,8 @@ namespace AlexandreApps.Condominial.Backend.Appservice.Domain
             Settings = new AppSettings
             {
                 MainConnectionString = configuration.GetConnectionString("main"),
-                MainSslProtocol = configuration.GetSection("ConnectionSslProtocol")["main"]
+                MainSslProtocol = configuration.GetSection("ConnectionSslProtocol")["main"],
+                WebtokenKey = configuration.GetSection("WebtokenKey").Value
             };
         }
         public AppSettings Settings { get; set; }

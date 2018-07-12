@@ -7,6 +7,7 @@
   <ItemGroup>
     <ProjectReference Include="..\..\Infra\AlexandreApps.Condominial.Backend.Exceptions\AlexandreApps.Condominial.Backend.Exceptions.csproj" />
     <ProjectReference Include="..\..\Infra\AlexandreApps.Condominial.Backend.Interfaces\AlexandreApps.Condominial.Backend.Interfaces.csproj" />
+    <ProjectReference Include="..\..\Infra\AlexandreApps.Condominial.Backend.Webtokens\AlexandreApps.Condominial.Backend.Webtokens.csproj" />
     <ProjectReference Include="..\..\Model\AlexandreApps.Condominial.Backend.Model\AlexandreApps.Condominial.Backend.Model.csproj" />
   </ItemGroup>
 

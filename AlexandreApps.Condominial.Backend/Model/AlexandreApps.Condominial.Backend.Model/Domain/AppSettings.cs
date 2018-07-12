@@ -8,5 +8,6 @@ namespace AlexandreApps.Condominial.Backend.Model.Domain
     {
         public string MainConnectionString { get; set; }
         public string MainSslProtocol { get; set; }
+        public string WebtokenKey { get; set; }
     }
 }

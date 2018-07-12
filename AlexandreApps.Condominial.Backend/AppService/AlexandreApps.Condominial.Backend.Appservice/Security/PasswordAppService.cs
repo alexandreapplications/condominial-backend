@@ -8,6 +8,8 @@ using System.Security.Cryptography;
 using System.Linq;
 using System.Threading.Tasks;
 using AlexandreApps.Condominial.Backend.Exceptions.Application;
+using AlexandreApps.Condominial.Backend.Webtokens;
+using AlexandreApps.Condominial.Backend.Interfaces.AppService.Domain;
 
 namespace AlexandreApps.Condominial.Backend.Appservice.Security
 {
@@ -15,17 +17,19 @@ namespace AlexandreApps.Condominial.Backend.Appservice.Security
     {
         private IPasswordDataService _passwordDataService { get; set; }
         private IUserDataService _userDataService { get; set; }
-        public PasswordAppService(IPasswordDataService passwordDataService, IUserDataService userDataService)
+        private ISettingsAppService _settingsAppService { get; set; }
+        public PasswordAppService(IPasswordDataService passwordDataService, IUserDataService userDataService, ISettingsAppService settingsAppService)
         {
             this._passwordDataService = passwordDataService;
             this._userDataService = userDataService;
+            this._settingsAppService = settingsAppService;
         }
 
         public async Task<IEnumerable<Guid>> SetPassword(PasswordViewModel model)
         {
             // Verify if the user exists
             var users = await _userDataService.GetByLogin(model.Login);
-            if (users == null || users.Count > 0)
+            if (users == null || users.Count == 0)
             {
                 throw new UserDoesntExistsException(model.Login);
             }
@@ -39,10 +43,10 @@ namespace AlexandreApps.Condominial.Backend.Appservice.Security
             });
         }
 
-        public async Task<bool> Login(LoginViewModel model)
+        public async Task<string> Login(LoginViewModel model)
         {
             var users = await _userDataService.GetByLogin(model.Login);
-            if (users == null || users.Count > 0)
+            if (users == null || users.Count == 0)
             {
                 throw new UserDoesntExistsException(model.Login);
             }
@@ -51,17 +55,21 @@ namespace AlexandreApps.Condominial.Backend.Appservice.Security
 
             var encPwd = DoEncriptPassword(user.Id, model.Password);
 
-            return encPwd.SequenceEqual(pwdData.Password);
+            if (encPwd.SequenceEqual(pwdData.Password))
+            {
+                return TokenManager.GenerateToken(this._settingsAppService.Settings.WebtokenKey, user);
+            }
+            return string.Empty;
         }
 
         public async Task<bool> ChangePassword(ChangePasswordViewModel model)
         {
-            var isValid = await Login(new LoginViewModel
+            var token = await Login(new LoginViewModel
             {
                 Login = model.Login,
                 Password = model.Password
             });
-            if (isValid)
+            if (!string.IsNullOrWhiteSpace(token))
             {
                 var info = await SetPassword(new PasswordViewModel
                 {

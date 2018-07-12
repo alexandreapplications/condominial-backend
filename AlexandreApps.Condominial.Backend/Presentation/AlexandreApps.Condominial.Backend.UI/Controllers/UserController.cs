@@ -77,7 +77,7 @@ namespace AlexandreApps.Condominial.Backend.UI.Controllers
             if (!this.ModelState.IsValid)
                 return BadRequest(ModelState);
             var answer = await this._passwordAppService.Login(model);
-            return Accepted(answer);
+            return Accepted(new { token = answer });
         }
 
     }
