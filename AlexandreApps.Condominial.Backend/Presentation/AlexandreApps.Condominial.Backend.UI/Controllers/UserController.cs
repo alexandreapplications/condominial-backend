@@ -65,6 +65,8 @@ namespace AlexandreApps.Condominial.Backend.UI.Controllers
         [HttpPut("Subscribe")]
         public async Task<IActionResult> Subscribe(SubscribeViewModel model)
         {
+            if (!this.ModelState.IsValid)
+                return BadRequest(ModelState);
             var answer = await this._userAppService.Subscribe(model);
             return Created($"api/user/{ answer }", answer);
         }
@@ -72,6 +74,8 @@ namespace AlexandreApps.Condominial.Backend.UI.Controllers
         [HttpPut("Login")]
         public async Task<IActionResult> Login(LoginViewModel model)
         {
+            if (!this.ModelState.IsValid)
+                return BadRequest(ModelState);
             var answer = await this._passwordAppService.Login(model);
             return Accepted(answer);
         }

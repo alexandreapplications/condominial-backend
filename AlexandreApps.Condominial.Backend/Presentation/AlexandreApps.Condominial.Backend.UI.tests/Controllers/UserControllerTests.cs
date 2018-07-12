@@ -19,7 +19,9 @@ namespace AlexandreApps.Condominial.Backend.UI.tests.Controllers
             mockAppService.Setup(x => x.Insert(MockData[0])).ReturnsAsync(new List<Guid> { Guid.Empty });
             mockAppService.Setup(x => x.Update(MockData[0])).ReturnsAsync(new List<Guid> { Guid.Empty });
             mockAppService.Setup(x => x.Delete()).ReturnsAsync(new List<Guid> { Guid.Empty });
+            mockAppService.Setup(x => x.Subscribe(MockDataSubscribe[0])).ReturnsAsync(Guid.Empty);
             var mockPasswordAppService = new Mock<IPasswordAppService>();
+            mockPasswordAppService.Setup(x => x.Login(MockDataLogin[0])).ReturnsAsync(false);
             this._userController = new UserController(mockAppService.Object, mockPasswordAppService.Object);
         }
         private List<UserViewModel> MockData { get; set; } = new List<UserViewModel> {
@@ -31,6 +33,23 @@ namespace AlexandreApps.Condominial.Backend.UI.tests.Controllers
                     Login = "joao@email.com",
                     PersonId = null,
                     SubscribeDate = DateTime.Today
+                }
+            };
+
+        private List<SubscribeViewModel> MockDataSubscribe { get; set; } = new List<SubscribeViewModel> {
+                new SubscribeViewModel {
+                    Name = "João",
+                    BirthDate = new DateTime(2010,1,1),
+                    Country = 55,
+                    Email = "joao@email.com",
+                    Password = "GueriGueri2018"
+                }
+            };
+
+        private List<LoginViewModel> MockDataLogin { get; set; } = new List<LoginViewModel> {
+                new LoginViewModel {
+                    Login = "joao@email.com",
+                    Password = "GueriGueri2018"
                 }
             };
 
@@ -81,5 +100,28 @@ namespace AlexandreApps.Condominial.Backend.UI.tests.Controllers
             var okResult = result as AcceptedResult;
             Assert.Equal(202, okResult.StatusCode);
         }
+
+        [Fact(DisplayName = "UserControllerTests -> Subscribe")]
+        public async void Subscribe()
+        {
+            var item = MockDataSubscribe.First();
+            var result = await _userController.Subscribe(item);
+            Assert.NotNull(result);
+
+            var okResult = result as CreatedResult;
+            Assert.Equal(201, okResult.StatusCode);
+        }
+
+        [Fact(DisplayName = "UserControllerTests -> Login")]
+        public async void Login()
+        {
+            var item = MockDataLogin.First();
+            var result = await _userController.Login(item);
+            Assert.NotNull(result);
+
+            var okResult = result as AcceptedResult;
+            Assert.Equal(202, okResult.StatusCode);
+        }
+
     }
 }

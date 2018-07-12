@@ -1,5 +1,4 @@
-﻿using AlexandreApps.Condominial.Backend.Exceptions.Application;
-using AlexandreApps.Condominial.Backend.Interfaces.AppService.Security;
+﻿using AlexandreApps.Condominial.Backend.Interfaces.AppService.Security;
 using AlexandreApps.Condominial.Backend.Interfaces.DataService.Security;
 using AlexandreApps.Condominial.Backend.Model.Security;
 using AlexandreApps.Condominial.Backend.Model.Security.ViewModels;
@@ -8,6 +7,7 @@ using System.Collections.Generic;
 using System.Security.Cryptography;
 using System.Linq;
 using System.Threading.Tasks;
+using AlexandreApps.Condominial.Backend.Exceptions.Application;
 
 namespace AlexandreApps.Condominial.Backend.Appservice.Security
 {
@@ -52,6 +52,28 @@ namespace AlexandreApps.Condominial.Backend.Appservice.Security
             var encPwd = DoEncriptPassword(user.Id, model.Password);
 
             return encPwd.SequenceEqual(pwdData.Password);
+        }
+
+        public async Task<bool> ChangePassword(ChangePasswordViewModel model)
+        {
+            var isValid = await Login(new LoginViewModel
+            {
+                Login = model.Login,
+                Password = model.Password
+            });
+            if (isValid)
+            {
+                var info = await SetPassword(new PasswordViewModel
+                {
+                    Login = model.Login,
+                    Password = model.Password
+                });
+                if (info != null && info.Count() > 0)
+                {
+                    return true;
+                }
+            }
+            return false;
         }
 
         public async Task<bool> HasPassword(Guid id)

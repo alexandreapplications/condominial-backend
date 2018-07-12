@@ -15,6 +15,6 @@ namespace AlexandreApps.Condominial.Backend.Model.Security.ViewModels
         public DateTime BirthDate { get; set; }
         public int Country { get; set; }
         [Required, MinLength(8)]
-        public string PassWord { get; set; }
+        public string Password { get; set; }
     }
 }

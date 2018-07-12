@@ -11,5 +11,6 @@ namespace AlexandreApps.Condominial.Backend.Interfaces.AppService.Security
         Task<IEnumerable<Guid>> SetPassword(PasswordViewModel model);
         Task<bool> Login(LoginViewModel model);
         Task<bool> HasPassword(Guid id);
+        Task<bool> ChangePassword(ChangePasswordViewModel id);
     }
 }

@@ -124,7 +124,7 @@ namespace AlexandreApps.Condominial.Backend.Appservice.Security
                 await this._passwordAppService.SetPassword(new PasswordViewModel
                 {
                     Login = model.Email,
-                    Password = model.PassWord
+                    Password = model.Password
                 });
             }
             return insertedId;
