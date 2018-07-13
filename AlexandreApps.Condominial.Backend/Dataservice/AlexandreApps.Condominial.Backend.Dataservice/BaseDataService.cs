@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using System.Security.Authentication;
 using System.Text;
 
-namespace AlexandreApps.Condominial.Backend.Dataservice.Security
+namespace AlexandreApps.Condominial.Backend.Dataservice
 {
     public abstract class BaseDataService<T>
     {

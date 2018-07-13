@@ -1,4 +1,5 @@
-﻿using System;
+﻿using AlexandreApps.Condominial.Backend.Model.Domain;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Text;
@@ -8,7 +9,7 @@ namespace AlexandreApps.Condominial.Backend.Model.Security
     /// <summary>
     /// User Model
     /// </summary>
-    public class UserModel
+    public class UserModel : IRecordId
     {
         /// <summary>
         /// User Id
