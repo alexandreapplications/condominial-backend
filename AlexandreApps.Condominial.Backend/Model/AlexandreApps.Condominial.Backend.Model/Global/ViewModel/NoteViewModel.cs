@@ -1,4 +1,5 @@
-﻿using System;
+﻿using AlexandreApps.Condominial.Backend.Model.Domain;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Text;

@@ -1,11 +1,12 @@
-﻿using System;
+﻿using AlexandreApps.Condominial.Backend.Model.Domain;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Text;
 
 namespace AlexandreApps.Condominial.Backend.Model.Global.ViewModel
 {
-    public class PersonViewModel
+    public class PersonViewModel : IViewModel
     {
         public Guid Id { get; set; }
         [Required]
@@ -19,5 +20,7 @@ namespace AlexandreApps.Condominial.Backend.Model.Global.ViewModel
         public IList<ContactViewModel> Contacts { get; set; }
         public IList<NoteViewModel> Notes { get; set; }
         public DateTime? LastUpdate { get; set; }
+        [Required, RegularExpression(@"^[0-9a-zA-Z]*\.[0-9a-zA-Z]*\.[0-9a-zA-Z-_]*$")]
+        public string Token { get; set; }
     }
 }

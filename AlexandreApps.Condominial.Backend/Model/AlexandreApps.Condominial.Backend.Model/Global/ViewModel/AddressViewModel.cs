@@ -1,4 +1,5 @@
-﻿using System;
+﻿using AlexandreApps.Condominial.Backend.Model.Domain;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
@@ -6,7 +7,7 @@ namespace AlexandreApps.Condominial.Backend.Model.Global.ViewModel
 {
     public class AddressViewModel
     {
-        public Guid Id { get; set; }
+        public Guid? Id { get; set; }
         public string Street { get; set; }
         public string Number { get; set; }
         public string ComplementaryInformation { get; set; }
