@@ -56,6 +56,9 @@ namespace AlexandreApps.Condominial.Backend.Appservice.Security
             var user = users.First();
             var pwdData = await this._passwordDataService.GetLast(user.Id);
 
+            if (pwdData == null)
+                return null;
+
             var encPwd = DoEncriptPassword(user.Id, model.Password);
 
             if (encPwd.SequenceEqual(pwdData.Password))
