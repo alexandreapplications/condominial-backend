@@ -18,6 +18,8 @@ namespace AlexandreApps.Condominial.Backend.Exceptions.Application
         public UserDoesntExistsException(string userLogin, Guid userId)
             : base($"User doesn't exists (Login: { userLogin }) (Id: { userId })")
         {
+            this.UserLogin = userLogin;
+            this.UserId = userId;
         }
 
         private string UserLogin { get; set; }

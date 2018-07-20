@@ -1,4 +1,5 @@
 ﻿using AlexandreApps.Condominial.Backend.Model.Domain;
+using AlexandreApps.Condominial.Backend.Model.Security;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -11,8 +12,8 @@ namespace AlexandreApps.Condominial.Backend.Interfaces.AppService
     {
         Task<IEnumerable<T>> Get(Guid id);
         Task<IEnumerable<T>> GetAll();
-        Task<IEnumerable<Guid>> Insert(params T[] models);
-        Task<IEnumerable<Guid>> Update(params T[] models);
-        Task<IEnumerable<Guid>> Delete(params Guid[] ids);
+        Task<IEnumerable<Guid>> Insert(UserModel user, params T[] models);
+        Task<IEnumerable<Guid>> Update(UserModel user, params T[] models);
+        Task<IEnumerable<Guid>> Delete(UserModel user, params Guid[] ids);
     }
 }

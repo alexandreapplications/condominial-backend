@@ -20,7 +20,5 @@ namespace AlexandreApps.Condominial.Backend.Model.Global.ViewModel
         public IList<ContactViewModel> Contacts { get; set; }
         public IList<NoteViewModel> Notes { get; set; }
         public DateTime? LastUpdate { get; set; }
-        [Required, RegularExpression(@"^[0-9a-zA-Z]*\.[0-9a-zA-Z]*\.[0-9a-zA-Z-_]*$")]
-        public string Token { get; set; }
     }
 }

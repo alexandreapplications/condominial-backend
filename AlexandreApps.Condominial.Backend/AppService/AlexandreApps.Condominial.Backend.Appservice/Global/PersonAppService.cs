@@ -3,6 +3,7 @@ using AlexandreApps.Condominial.Backend.Interfaces.AppService.Global;
 using AlexandreApps.Condominial.Backend.Interfaces.DataService.Global;
 using AlexandreApps.Condominial.Backend.Model.Global;
 using AlexandreApps.Condominial.Backend.Model.Global.ViewModel;
+using AlexandreApps.Condominial.Backend.Model.Security;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -33,7 +34,7 @@ namespace AlexandreApps.Condominial.Backend.Appservice.Global
             return await Task.FromResult(this.Map(answer));
         }
 
-        public async Task<IEnumerable<Guid>> Insert(params PersonViewModel[] models)
+        public async Task<IEnumerable<Guid>> Insert(UserModel user, params PersonViewModel[] models)
         {
             var addedRecord = new List<PersonModel>();
 
@@ -93,7 +94,7 @@ namespace AlexandreApps.Condominial.Backend.Appservice.Global
             return await this._personDataService.Insert(addedRecord);
         }
 
-        public async Task<IEnumerable<Guid>> Update(params PersonViewModel[] models)
+        public async Task<IEnumerable<Guid>> Update(UserModel user, params PersonViewModel[] models)
         {
             var recordsToUpdate = new List<PersonModel>();
             var now = DateTime.UtcNow;
@@ -206,7 +207,7 @@ namespace AlexandreApps.Condominial.Backend.Appservice.Global
             return await _personDataService.Update(recordsToUpdate);
         }
 
-        public async Task<IEnumerable<Guid>> Delete(params Guid[] ids)
+        public async Task<IEnumerable<Guid>> Delete(UserModel user, params Guid[] ids)
         {
             return await this._personDataService.Delete(ids);
         }

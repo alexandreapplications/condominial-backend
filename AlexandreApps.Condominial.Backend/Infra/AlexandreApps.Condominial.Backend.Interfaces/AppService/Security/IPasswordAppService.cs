@@ -9,7 +9,7 @@ namespace AlexandreApps.Condominial.Backend.Interfaces.AppService.Security
     public interface IPasswordAppService
     {
         Task<IEnumerable<Guid>> SetPassword(PasswordViewModel model);
-        Task<string> Login(LoginViewModel model);
+        Task<UserViewModel> Login(LoginViewModel model);
         Task<bool> HasPassword(Guid id);
         Task<bool> ChangePassword(ChangePasswordViewModel id);
     }

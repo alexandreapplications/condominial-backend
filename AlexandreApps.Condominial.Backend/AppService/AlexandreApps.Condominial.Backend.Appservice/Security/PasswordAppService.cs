@@ -10,6 +10,9 @@ using System.Threading.Tasks;
 using AlexandreApps.Condominial.Backend.Exceptions.Application;
 using AlexandreApps.Condominial.Backend.Webtokens;
 using AlexandreApps.Condominial.Backend.Interfaces.AppService.Domain;
+using System.Security.Claims;
+using System.Security.Principal;
+using Microsoft.IdentityModel.Tokens;
 
 namespace AlexandreApps.Condominial.Backend.Appservice.Security
 {
@@ -43,7 +46,7 @@ namespace AlexandreApps.Condominial.Backend.Appservice.Security
             });
         }
 
-        public async Task<string> Login(LoginViewModel model)
+        public async Task<UserViewModel> Login(LoginViewModel model)
         {
             var users = await _userDataService.GetByLogin(model.Login);
             if (users == null || users.Count == 0)
@@ -57,19 +60,28 @@ namespace AlexandreApps.Condominial.Backend.Appservice.Security
 
             if (encPwd.SequenceEqual(pwdData.Password))
             {
-                return TokenManager.GenerateToken(this._settingsAppService.Settings.WebtokenKey, user);
+                return new UserViewModel
+                {
+                    Id = user.Id,
+                    Login = user.Login,
+                    Name = user.Name,
+                    BirthDate = user.BirthDate,
+                    Country = user.Country,
+                    PersonId = user.PersonId,
+                    SubscribeDate = user.SubscribeDate
+                };
             }
-            return string.Empty;
+            return null;
         }
 
         public async Task<bool> ChangePassword(ChangePasswordViewModel model)
         {
-            var token = await Login(new LoginViewModel
+            var userModel = await Login(new LoginViewModel
             {
                 Login = model.Login,
                 Password = model.Password
             });
-            if (!string.IsNullOrWhiteSpace(token))
+            if (userModel != null)
             {
                 var info = await SetPassword(new PasswordViewModel
                 {
