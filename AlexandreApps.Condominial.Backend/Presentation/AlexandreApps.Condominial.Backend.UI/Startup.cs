@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using System.Threading.Tasks;
+using AlexandreApps.Condominial.Backend.Appservice.Domain;
 using AlexandreApps.Condominial.Backend.Model.Domain;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
@@ -11,6 +13,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
+using Microsoft.IdentityModel.Tokens;
 using Swashbuckle.AspNetCore.Swagger;
 
 namespace AlexandreApps.Condominial.Backend.UI
@@ -46,10 +49,26 @@ namespace AlexandreApps.Condominial.Backend.UI
 
             services.Configure<AppSettings>(Configuration.GetSection("AppSettings"));
 
-            DependencyBuilder.Build(services, Configuration);
+            var settingsAppService = new SettingsAppService(Configuration);
+
             //DependencyInjection _dependency = new DependencyInjection();
 
             //_dependency.Injection(services);
+
+            services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(cfg =>
+            {
+                cfg.RequireHttpsMetadata = false;
+                cfg.SaveToken = true;
+                cfg.TokenValidationParameters = new TokenValidationParameters()
+                {
+                    ValidIssuer = settingsAppService.Settings.SecurityToken.Issuer,
+                    ValidAudience = settingsAppService.Settings.SecurityToken.Audience,
+                    IssuerSigningKey = new SymmetricSecurityKey(settingsAppService.Settings.SecurityToken.WebtokeyKeyData)
+                };
+
+            });
+
+            DependencyBuilder.Build(services, Configuration, settingsAppService);
 
         }
 
@@ -68,6 +87,8 @@ namespace AlexandreApps.Condominial.Backend.UI
             app.UseSwagger();
 
             app.UseSwaggerUI(c => c.SwaggerEndpoint($"/swagger/{ApplicationVersion}/swagger.json", ApplicationName));
+
+            app.UseAuthentication();
         }
     }
 }

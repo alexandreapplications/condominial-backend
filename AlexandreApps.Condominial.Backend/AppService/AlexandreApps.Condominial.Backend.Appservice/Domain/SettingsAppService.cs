@@ -11,11 +11,17 @@ namespace AlexandreApps.Condominial.Backend.Appservice.Domain
     {
         public SettingsAppService(IConfiguration configuration)
         {
+            var token = configuration.GetSection("SecurityToken");
             Settings = new AppSettings
             {
                 MainConnectionString = configuration.GetConnectionString("main"),
-                MainSslProtocol = configuration.GetSection("ConnectionSslProtocol")["main"],
-                WebtokenKey = configuration.GetSection("WebtokenKey").Value
+                SecurityToken = new AppSettings.SecurityTokenSettings
+                {
+                    MainSslProtocol = token.GetSection("ConnectionSslProtocol")["main"],
+                    WebtokenKey = token.GetSection("WebtokenKey").Value,
+                    Audience = token.GetSection("Audience").Value,
+                    Issuer = token.GetSection("Issuer").Value,
+                }
             };
         }
         public AppSettings Settings { get; set; }

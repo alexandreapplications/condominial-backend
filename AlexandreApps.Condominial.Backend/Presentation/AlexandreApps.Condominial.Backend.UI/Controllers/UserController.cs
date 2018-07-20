@@ -14,6 +14,7 @@ using System.Text;
 using AlexandreApps.Condominial.Backend.Interfaces.AppService.Domain;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
+using Microsoft.AspNetCore.Authorization;
 
 namespace AlexandreApps.Condominial.Backend.UI.Controllers
 {
@@ -32,6 +33,7 @@ namespace AlexandreApps.Condominial.Backend.UI.Controllers
             this._settingsAppService = settingsAppService;
         }
 
+        [Authorize]
         [HttpGet("Get")]
         public async Task<IActionResult> Get(Guid? id)
         {
@@ -94,7 +96,7 @@ namespace AlexandreApps.Condominial.Backend.UI.Controllers
             // Create Security key  using private key above:
             // not that latest version of JWT using Microsoft namespace instead of System
             var securityKey = new Microsoft
-                .IdentityModel.Tokens.SymmetricSecurityKey(Encoding.UTF8.GetBytes(_settingsAppService.Settings.WebtokenKey));
+                .IdentityModel.Tokens.SymmetricSecurityKey(Encoding.UTF8.GetBytes(_settingsAppService.Settings.SecurityToken.WebtokenKey));
 
             // Also note that securityKey length should be >256b
             // so you have to make sure that your private key has a proper length
@@ -110,8 +112,8 @@ namespace AlexandreApps.Condominial.Backend.UI.Controllers
 
             var securityTokenDescriptor = new SecurityTokenDescriptor()
             {
-                Audience = "http://my.website.com",
-                Issuer = "http://my.tokenissuer.com",
+                Audience = _settingsAppService.Settings.SecurityToken.Audience,
+                Issuer = _settingsAppService.Settings.SecurityToken.Issuer,
                 Subject = claimsIdentity,
                 SigningCredentials = signingCredentials
             };

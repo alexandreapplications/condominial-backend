@@ -26,7 +26,7 @@ namespace AlexandreApps.Condominial.Backend.Dataservice
 
                     SslProtocols sslProtocols = SslProtocols.None;
 
-                    if (!string.IsNullOrWhiteSpace(this._settingsAppService.Settings.MainSslProtocol) && Enum.TryParse<SslProtocols>(this._settingsAppService.Settings.MainSslProtocol, out sslProtocols))
+                    if (!string.IsNullOrWhiteSpace(this._settingsAppService.Settings.SecurityToken.MainSslProtocol) && Enum.TryParse<SslProtocols>(this._settingsAppService.Settings.SecurityToken.MainSslProtocol, out sslProtocols))
                     {
                         this._clientSettings.SslSettings = new SslSettings() { EnabledSslProtocols = sslProtocols };
                     }
