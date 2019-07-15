@@ -1,0 +1,20 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.1</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\Infra\AlexandreApps.Condominial.Backend.Exceptions\AlexandreApps.Condominial.Backend.Exceptions.csproj" />
+    <ProjectReference Include="..\..\Infra\AlexandreApps.Condominial.Backend.Interfaces\AlexandreApps.Condominial.Backend.Interfaces.csproj" />
+    <ProjectReference Include="..\..\Infra\AlexandreApps.Condominial.Backend.Webtokens\AlexandreApps.Condominial.Backend.Webtokens.csproj" />
+    <ProjectReference Include="..\..\Model\AlexandreApps.Condominial.Backend.Model\AlexandreApps.Condominial.Backend.Model.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="Microsoft.Extensions.Configuration.Abstractions">
+      <HintPath>..\..\..\..\..\..\Program Files\dotnet\sdk\NuGetFallbackFolder\microsoft.extensions.configuration.abstractions\2.0.2\lib\netstandard2.0\Microsoft.Extensions.Configuration.Abstractions.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
+</Project>
